@@ -15,6 +15,10 @@
 		D10F7C722B81A5CC007D27EB /* FlowCoordinatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */; };
 		D10F7C742B81A690007D27EB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C732B81A690007D27EB /* Coordinator.swift */; };
 		D10F7C7A2B81ACF9007D27EB /* HomeViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C792B81ACF9007D27EB /* HomeViewViewController.swift */; };
+		D10F7C7D2B81C148007D27EB /* MovieTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C7C2B81C148007D27EB /* MovieTableViewCell.swift */; };
+		D10F7C7F2B81C15C007D27EB /* MovieModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C7E2B81C15C007D27EB /* MovieModel.swift */; };
+		D10F7C812B81C25B007D27EB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C802B81C25B007D27EB /* HomeViewModel.swift */; };
+		D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C842B81D507007D27EB /* ModelAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +32,11 @@
 		D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinatorController.swift; sourceTree = "<group>"; };
 		D10F7C732B81A690007D27EB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		D10F7C792B81ACF9007D27EB /* HomeViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewViewController.swift; sourceTree = "<group>"; };
+		D10F7C7C2B81C148007D27EB /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
+		D10F7C7E2B81C15C007D27EB /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
+		D10F7C802B81C25B007D27EB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		D10F7C832B81CDC1007D27EB /* Jomhuria-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Jomhuria-Regular.ttf"; sourceTree = "<group>"; };
+		D10F7C842B81D507007D27EB /* ModelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,15 +69,13 @@
 		D10F7C592B819DB6007D27EB /* Talent-Wars */ = {
 			isa = PBXGroup;
 			children = (
+				D10F7C822B81CDA0007D27EB /* Resources */,
 				D10F7C5A2B819DB6007D27EB /* AppDelegate.swift */,
 				D10F7C5C2B819DB6007D27EB /* SceneDelegate.swift */,
 				D10F7C5E2B819DB6007D27EB /* ViewController.swift */,
 				D10F7C702B81A5A9007D27EB /* Model */,
 				D10F7C6F2B81A5A0007D27EB /* ViewModel */,
 				D10F7C6E2B81A599007D27EB /* Views */,
-				D10F7C632B819DB8007D27EB /* Assets.xcassets */,
-				D10F7C652B819DB8007D27EB /* LaunchScreen.storyboard */,
-				D10F7C682B819DB8007D27EB /* Info.plist */,
 			);
 			path = "Talent-Wars";
 			sourceTree = "<group>";
@@ -76,6 +83,7 @@
 		D10F7C6E2B81A599007D27EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D10F7C7B2B81C12E007D27EB /* Subviews */,
 				D10F7C792B81ACF9007D27EB /* HomeViewViewController.swift */,
 			);
 			path = Views;
@@ -85,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */,
+				D10F7C802B81C25B007D27EB /* HomeViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -93,8 +102,29 @@
 			isa = PBXGroup;
 			children = (
 				D10F7C732B81A690007D27EB /* Coordinator.swift */,
+				D10F7C7E2B81C15C007D27EB /* MovieModel.swift */,
+				D10F7C842B81D507007D27EB /* ModelAPI.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D10F7C7B2B81C12E007D27EB /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				D10F7C7C2B81C148007D27EB /* MovieTableViewCell.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		D10F7C822B81CDA0007D27EB /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D10F7C832B81CDC1007D27EB /* Jomhuria-Regular.ttf */,
+				D10F7C632B819DB8007D27EB /* Assets.xcassets */,
+				D10F7C652B819DB8007D27EB /* LaunchScreen.storyboard */,
+				D10F7C682B819DB8007D27EB /* Info.plist */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,8 +198,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D10F7C5F2B819DB6007D27EB /* ViewController.swift in Sources */,
+				D10F7C812B81C25B007D27EB /* HomeViewModel.swift in Sources */,
 				D10F7C7A2B81ACF9007D27EB /* HomeViewViewController.swift in Sources */,
+				D10F7C7D2B81C148007D27EB /* MovieTableViewCell.swift in Sources */,
+				D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */,
 				D10F7C5B2B819DB6007D27EB /* AppDelegate.swift in Sources */,
+				D10F7C7F2B81C15C007D27EB /* MovieModel.swift in Sources */,
 				D10F7C742B81A690007D27EB /* Coordinator.swift in Sources */,
 				D10F7C722B81A5CC007D27EB /* FlowCoordinatorController.swift in Sources */,
 				D10F7C5D2B819DB6007D27EB /* SceneDelegate.swift in Sources */,
