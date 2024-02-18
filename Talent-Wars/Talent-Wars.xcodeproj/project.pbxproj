@@ -12,6 +12,9 @@
 		D10F7C5F2B819DB6007D27EB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C5E2B819DB6007D27EB /* ViewController.swift */; };
 		D10F7C642B819DB8007D27EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D10F7C632B819DB8007D27EB /* Assets.xcassets */; };
 		D10F7C672B819DB8007D27EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D10F7C652B819DB8007D27EB /* LaunchScreen.storyboard */; };
+		D10F7C722B81A5CC007D27EB /* FlowCoordinatorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */; };
+		D10F7C742B81A690007D27EB /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C732B81A690007D27EB /* Coordinator.swift */; };
+		D10F7C7A2B81ACF9007D27EB /* HomeViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C792B81ACF9007D27EB /* HomeViewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		D10F7C632B819DB8007D27EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D10F7C662B819DB8007D27EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D10F7C682B819DB8007D27EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowCoordinatorController.swift; sourceTree = "<group>"; };
+		D10F7C732B81A690007D27EB /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		D10F7C792B81ACF9007D27EB /* HomeViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,11 +63,38 @@
 				D10F7C5A2B819DB6007D27EB /* AppDelegate.swift */,
 				D10F7C5C2B819DB6007D27EB /* SceneDelegate.swift */,
 				D10F7C5E2B819DB6007D27EB /* ViewController.swift */,
+				D10F7C702B81A5A9007D27EB /* Model */,
+				D10F7C6F2B81A5A0007D27EB /* ViewModel */,
+				D10F7C6E2B81A599007D27EB /* Views */,
 				D10F7C632B819DB8007D27EB /* Assets.xcassets */,
 				D10F7C652B819DB8007D27EB /* LaunchScreen.storyboard */,
 				D10F7C682B819DB8007D27EB /* Info.plist */,
 			);
 			path = "Talent-Wars";
+			sourceTree = "<group>";
+		};
+		D10F7C6E2B81A599007D27EB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D10F7C792B81ACF9007D27EB /* HomeViewViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		D10F7C6F2B81A5A0007D27EB /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		D10F7C702B81A5A9007D27EB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D10F7C732B81A690007D27EB /* Coordinator.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +168,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				D10F7C5F2B819DB6007D27EB /* ViewController.swift in Sources */,
+				D10F7C7A2B81ACF9007D27EB /* HomeViewViewController.swift in Sources */,
 				D10F7C5B2B819DB6007D27EB /* AppDelegate.swift in Sources */,
+				D10F7C742B81A690007D27EB /* Coordinator.swift in Sources */,
+				D10F7C722B81A5CC007D27EB /* FlowCoordinatorController.swift in Sources */,
 				D10F7C5D2B819DB6007D27EB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,7 +321,6 @@
 				INFOPLIST_FILE = "Talent-Wars/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -313,7 +348,6 @@
 				INFOPLIST_FILE = "Talent-Wars/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
