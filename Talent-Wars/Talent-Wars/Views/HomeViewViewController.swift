@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewViewController: UIViewController {
+class HomeViewViewController: UIViewController, UISearchBarDelegate {
     var coordinator: Coordinator?
     
     private let searchBar = UISearchBar()
@@ -24,6 +24,14 @@ class HomeViewViewController: UIViewController {
         // Defina a cor de fundo da view para verde na área acima da tableView.
         view.backgroundColor = UIColor.green
         
+        searchBar.delegate = self
+        
+        viewModel.onMoviesUpdated = { [weak self] in
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
+                }
+        
         viewModel.fetchMoviesFromAPI()
         setupTableView()
         setupSearchBar()
@@ -38,6 +46,17 @@ class HomeViewViewController: UIViewController {
         navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
+    
+    // Implementação do UISearchBarDelegate
+        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+            viewModel.filterMovies(with: searchText)
+        }
+
+        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+            searchBar.text = ""
+            viewModel.filterMovies(with: "")
+            searchBar.resignFirstResponder() // Esconde o teclado
+        }
     
     private func bindViewModel() {
         viewModel.onMoviesUpdated = { [weak self] in
@@ -85,14 +104,14 @@ class HomeViewViewController: UIViewController {
 
 extension HomeViewViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.movies.count // Removido ?? 0, já que movies.count sempre retorna um Int
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
-        let movie = viewModel.movies[indexPath.row] // Removido o if let
-        cell.configure(with: movie)
-        return cell
-    }
+            return viewModel.filteredMovies.count
+        }
+
+        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
+            let movie = viewModel.filteredMovies[indexPath.row]
+            cell.configure(with: movie)
+            return cell
+        }
 }
 
