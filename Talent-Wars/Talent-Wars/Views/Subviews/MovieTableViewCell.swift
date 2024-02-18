@@ -76,7 +76,7 @@ class MovieTableViewCell: UITableViewCell {
             movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             movieImageView.widthAnchor.constraint(equalToConstant: 70),
-            movieImageView.heightAnchor.constraint(equalToConstant: 105),
+            movieImageView.heightAnchor.constraint(equalToConstant: 90),
             
             stackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             stackView.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 16),

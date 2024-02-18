@@ -19,6 +19,12 @@ class MovieDetailsViewController: UIViewController {
     let ratingLabel = UILabel()
     let genresLabel = UILabel()
     let overviewTextView = UITextView()
+    let releaseDate = UILabel()
+    let userScore = UILabel()
+    let overviewTitle = UILabel()
+    let goFavButton = UIButton(type: .system)
+    let backButton = UIButton(type: .system)
+    let viewMovieTitle = UILabel()
     
     var movie: Movie? {
         didSet {
@@ -30,10 +36,82 @@ class MovieDetailsViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.white
+        navigationController?.navigationBar.isHidden = true
         
         setupScrollView()
         setupViews()
         setupLayout()
+        setupGoFavButton()
+        setupBackButton()
+    }
+    
+    private func setupBackButton() {
+        backButton.setTitle("Back to Search", for: .normal) // Ou use um ícone de seta
+        let configuration = UIImage.SymbolConfiguration(pointSize: 12, weight: .medium, scale: .default)
+        if let backImage = UIImage(systemName: "chevron.left", withConfiguration: configuration) {
+            backButton.setImage(backImage, for: .normal)
+            backButton.tintColor = UIColor.white
+        }
+        backButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
+        backButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        backButton.setTitleColor(UIColor.white, for: .normal)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        
+        backButton.layer.cornerRadius = 12
+        
+        view.addSubview(backButton)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            backButton.widthAnchor.constraint(equalToConstant: 140),
+            backButton.heightAnchor.constraint(equalToConstant: 28)
+        ])
+    }
+    
+    @objc func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+        // Ou, se você estiver apresentando de forma modal:
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func setupGoFavButton() {
+        // Configure o botão
+        goFavButton.setTitle("View Favs", for: .normal)
+        goFavButton.backgroundColor = UIColor(named: "favButton")
+        goFavButton.setTitleColor(UIColor(named: "labelFavButton"), for: .normal)
+        goFavButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        
+        goFavButton.layer.shadowColor = UIColor.black.cgColor // A cor da sombra
+        goFavButton.layer.shadowOffset = CGSize(width: 0, height: 4) // A direção e distância da sombra
+        goFavButton.layer.shadowOpacity = 0.5 // A transparência da sombra
+        goFavButton.layer.shadowRadius = 5 // O quão borrada a sombra será
+        
+        // Aplica cantos arredondados
+        goFavButton.layer.cornerRadius = 30 // Ajuste o valor conforme necessário
+        goFavButton.clipsToBounds = false
+        
+        // Adicione o botão à view e configure as constraints
+        contentView.addSubview(goFavButton)
+        goFavButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            goFavButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 70),
+            goFavButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -270), // Ajuste conforme necessário
+            goFavButton.widthAnchor.constraint(equalToConstant: 150), // Ajuste conforme necessário
+            goFavButton.heightAnchor.constraint(equalToConstant: 60) // Ajuste conforme necessário
+        ])
+        
+        // Adicione uma ação para o botão
+        goFavButton.addTarget(self, action: #selector(goFavTapped), for: .touchUpInside)
+    }
+    
+    @objc func goFavTapped() {
+        navigationController?.popViewController(animated: true)
+        // Implemente o que deve acontecer quando o botão for tocado
+        
     }
     
     private func setupScrollView() {
@@ -59,11 +137,17 @@ class MovieDetailsViewController: UIViewController {
     
     private func setupViews() {
         // Configure and add subviews
+        viewMovieTitle.font = UIFont(name: "Jomhuria-Regular", size: 80)
+        viewMovieTitle.textColor = UIColor.white
         movieImageView.contentMode = .scaleAspectFill
         movieImageView.clipsToBounds = true
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
-        ratingLabel.font = UIFont.systemFont(ofSize: 18)
-        genresLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        releaseDate.font = UIFont.systemFont(ofSize: 13)
+        releaseDate.textColor = UIColor.gray
+        genresLabel.font = UIFont.systemFont(ofSize: 13)
+        ratingLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        userScore.font = UIFont.systemFont(ofSize: 13)
+        overviewTitle.font = UIFont.boldSystemFont(ofSize: 18)
         overviewTextView.isEditable = false
         overviewTextView.font = UIFont.systemFont(ofSize: 16)
         posterImageView.contentMode = .scaleAspectFill
@@ -72,10 +156,13 @@ class MovieDetailsViewController: UIViewController {
         posterImageView.layer.borderWidth = 1
         posterImageView.layer.borderColor = UIColor.lightGray.cgColor
         
+        
         // Add subviews to contentView
-        [movieImageView, posterImageView, titleLabel, ratingLabel, genresLabel, overviewTextView].forEach {
+        [viewMovieTitle, movieImageView, posterImageView, titleLabel, releaseDate, genresLabel, ratingLabel, userScore, overviewTitle, overviewTextView].forEach {
             contentView.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
+            
+            contentView.bringSubviewToFront(viewMovieTitle)
         }
     }
     
@@ -84,30 +171,43 @@ class MovieDetailsViewController: UIViewController {
         // This will be a simplified version of your layout
         
         NSLayoutConstraint.activate([
-            movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            movieImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            movieImageView.heightAnchor.constraint(equalToConstant: 200), // example height
+            viewMovieTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            viewMovieTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            
+            movieImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            movieImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            movieImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            movieImageView.heightAnchor.constraint(equalToConstant: 300), // example height
             
             titleLabel.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: 8),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 160),
             titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             
-            ratingLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
-            ratingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            releaseDate.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            releaseDate.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 160),
             
-            genresLabel.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor, constant: 8),
-            genresLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            genresLabel.topAnchor.constraint(equalTo: releaseDate.bottomAnchor, constant: 8),
+            genresLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 160),
             
-            overviewTextView.topAnchor.constraint(equalTo: genresLabel.bottomAnchor, constant: 8),
+            ratingLabel.topAnchor.constraint(equalTo: genresLabel.bottomAnchor, constant: 8),
+            ratingLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 160),
+            
+            userScore.topAnchor.constraint(equalTo: genresLabel.bottomAnchor, constant: 14),
+            userScore.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 230),
+            
+            overviewTitle.topAnchor.constraint(equalTo: ratingLabel.bottomAnchor, constant: 130),
+            overviewTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            
+            overviewTextView.topAnchor.constraint(equalTo: overviewTitle.bottomAnchor, constant: 10),
             overviewTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
             overviewTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             overviewTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            overviewTextView.heightAnchor.constraint(equalToConstant: 200),
             
-            posterImageView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
+            posterImageView.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -50),
             posterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            posterImageView.widthAnchor.constraint(equalToConstant: 100), // Defina a largura conforme necessário
-            posterImageView.heightAnchor.constraint(equalToConstant: 150)
+            posterImageView.widthAnchor.constraint(equalToConstant: 130), // Defina a largura conforme necessário
+            posterImageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }
     
@@ -124,9 +224,13 @@ class MovieDetailsViewController: UIViewController {
     private func configureViewsWithMovie() {
         guard let movie = movie else { return }
         
+        viewMovieTitle.text = movie.title
         titleLabel.text = movie.title
+        releaseDate.text = movie.releaseDate
         ratingLabel.text = movie.voteAverage
         overviewTextView.text = movie.overview
+        userScore.text = "user score"
+        overviewTitle.text = "Overview"
         
         // Carregar e definir a imagem de fundo
         if let backdropPath = movie.backdropPath {
@@ -161,3 +265,4 @@ class MovieDetailsViewController: UIViewController {
         }.resume()
     }
 }
+

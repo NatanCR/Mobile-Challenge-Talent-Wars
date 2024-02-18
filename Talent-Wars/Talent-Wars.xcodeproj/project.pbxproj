@@ -20,6 +20,7 @@
 		D10F7C812B81C25B007D27EB /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C802B81C25B007D27EB /* HomeViewModel.swift */; };
 		D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C842B81D507007D27EB /* ModelAPI.swift */; };
 		D10F7C872B81E31F007D27EB /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C862B81E31E007D27EB /* MovieDetailsViewController.swift */; };
+		D10F7C892B823173007D27EB /* Jomhuria-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D10F7C882B823173007D27EB /* Jomhuria-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,9 +37,9 @@
 		D10F7C7C2B81C148007D27EB /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		D10F7C7E2B81C15C007D27EB /* MovieModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieModel.swift; sourceTree = "<group>"; };
 		D10F7C802B81C25B007D27EB /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		D10F7C832B81CDC1007D27EB /* Jomhuria-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Jomhuria-Regular.ttf"; sourceTree = "<group>"; };
 		D10F7C842B81D507007D27EB /* ModelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAPI.swift; sourceTree = "<group>"; };
 		D10F7C862B81E31E007D27EB /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
+		D10F7C882B823173007D27EB /* Jomhuria-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Jomhuria-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,7 +123,7 @@
 		D10F7C822B81CDA0007D27EB /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				D10F7C832B81CDC1007D27EB /* Jomhuria-Regular.ttf */,
+				D10F7C882B823173007D27EB /* Jomhuria-Regular.ttf */,
 				D10F7C632B819DB8007D27EB /* Assets.xcassets */,
 				D10F7C652B819DB8007D27EB /* LaunchScreen.storyboard */,
 				D10F7C682B819DB8007D27EB /* Info.plist */,
@@ -190,6 +191,7 @@
 			files = (
 				D10F7C672B819DB8007D27EB /* LaunchScreen.storyboard in Resources */,
 				D10F7C642B819DB8007D27EB /* Assets.xcassets in Resources */,
+				D10F7C892B823173007D27EB /* Jomhuria-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

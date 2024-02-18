@@ -22,8 +22,8 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
         title = "Popular Right now"
         
         // Defina a cor de fundo da view para verde na área acima da tableView.
-        view.backgroundColor = UIColor.green
-        
+        view.backgroundColor = UIColor(named: "homeBG")
+        tableView.separatorStyle = .none
         searchBar.delegate = self
         
         viewModel.onMoviesUpdated = { [weak self] in
@@ -92,7 +92,6 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         // A cor de fundo deve ser definida diretamente na searchBar e na tableView.
-        searchBar.backgroundColor = .green
         tableView.backgroundColor = .white
         
         NSLayoutConstraint.activate([
