@@ -21,8 +21,18 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
         // Defina o título da view.
         title = "Popular Right now"
         
-        // Defina a cor de fundo da view para verde na área acima da tableView.
-        view.backgroundColor = UIColor(named: "homeBG")
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(named: "homeBG") // A cor de fundo
+        appearance.titleTextAttributes = [
+            .font: UIFont(name: "Jomhuria-Regular", size: 40) ?? UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor(named: "homeTitle") ?? UIColor.white
+        ]
+        
+        
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        
         tableView.separatorStyle = .none
         searchBar.delegate = self
         

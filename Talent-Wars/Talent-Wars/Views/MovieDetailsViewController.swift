@@ -143,8 +143,9 @@ class MovieDetailsViewController: UIViewController {
         movieImageView.clipsToBounds = true
         titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
         releaseDate.font = UIFont.systemFont(ofSize: 13)
-        releaseDate.textColor = UIColor.gray
+        releaseDate.textColor = UIColor(named: "grayLabel")
         genresLabel.font = UIFont.systemFont(ofSize: 13)
+        genresLabel.textColor = UIColor(named: "grayLabel")
         ratingLabel.font = UIFont.boldSystemFont(ofSize: 20)
         userScore.font = UIFont.systemFont(ofSize: 13)
         overviewTitle.font = UIFont.boldSystemFont(ofSize: 18)
