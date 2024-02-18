@@ -60,13 +60,20 @@ class HomeViewModel {
                     let movies = welcomeData.results.map { result -> Movie in
                         // Aqui você precisa converter de Result para Movie
                         // Ajuste de acordo com as propriedades da sua estrutura Movie
-                        return Movie(
-                            title: result.title,
-                            year: String(result.releaseDate.prefix(4)),
-                            userScore: "\(Int(result.voteAverage * 10))%", // Convertido para uma porcentagem
-                            category: self?.genreNames(from: result.genreIDS) ?? "",
-                            imagePath: nil // Você precisará carregar a imagem de maneira assíncrona
-                        )
+                        return Movie(title: result.title,
+                                     releaseDate: String(result.releaseDate.prefix(4)),
+                                     voteAverage: "\(Int(result.voteAverage * 10))%",
+                                     overview: result.overview,
+                                     backdropPath: result.backdropPath,
+                                     posterPath: result.posterPath,
+                                     genreIDs: result.genreIDS)
+//                        return Movie(
+//                            title: result.title,
+//                            year: String(result.releaseDate.prefix(4)),
+//                            userScore: "\(Int(result.voteAverage * 10))%", // Convertido para uma porcentagem
+//                            category: self?.genreNames(from: result.genreIDS) ?? "",
+//                            imagePath: nil // Você precisará carregar a imagem de maneira assíncrona
+//                        )
                     }
                     // Atualiza a propriedade 'movies' na thread principal
                     DispatchQueue.main.async {

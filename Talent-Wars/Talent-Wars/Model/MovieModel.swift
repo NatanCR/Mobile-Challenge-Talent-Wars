@@ -12,10 +12,17 @@ struct MoviesResponse: Codable {
     let results: [Movie]
 }
 
-struct Movie: Codable {
+public struct Movie: Codable {
     let title: String
-    let year: String
-    let userScore: String
-    let category: String
-    let imagePath: String? // Caminho para a imagem do poster ou backdrop
+    let releaseDate: String
+    let voteAverage: String
+    let overview: String
+    let backdropPath: String?
+    let posterPath: String?
+    let genreIDs: [Int]
+    
+    // Você pode adicionar propriedades calculadas ou métodos para obter a URL da imagem e formatar a data, por exemplo.
+    var formattedReleaseYear: String {
+        String(releaseDate.prefix(4))
+    }
 }

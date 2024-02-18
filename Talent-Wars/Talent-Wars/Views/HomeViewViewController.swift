@@ -120,5 +120,11 @@ extension HomeViewViewController: UITableViewDataSource, UITableViewDelegate {
         cell.configure(with: movie)
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let coordinator = coordinator as? FlowCoordinatorController else { return }
+        let movie = viewModel.filteredMovies[indexPath.row]
+        coordinator.showMovieDetails(for: movie)
+    }
 }
 

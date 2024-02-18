@@ -22,4 +22,10 @@ class FlowCoordinatorController: Coordinator {
         homeViewVC.coordinator = self
         navigationController.pushViewController(homeViewVC, animated: false)
     }
+    
+    func showMovieDetails(for movie: Movie) {
+           let detailsVC = MovieDetailsViewController()
+           detailsVC.movie = movie
+           navigationController.pushViewController(detailsVC, animated: true)
+       }
 }

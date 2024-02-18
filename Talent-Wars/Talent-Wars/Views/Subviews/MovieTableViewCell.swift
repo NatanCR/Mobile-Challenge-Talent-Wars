@@ -17,6 +17,15 @@ class MovieTableViewCell: UITableViewCell {
     private let categoryLabel = UILabel()
     private let stackView = UIStackView()
     
+    private let genreDictionary = [
+        28: "Action", 12: "Adventure", 16: "Animation",
+        35: "Comedy", 80: "Crime", 99: "Documentary",
+        18: "Drama", 10751: "Family", 14: "Fantasy",
+        36: "History", 27: "Horror", 10402: "Music",
+        9648: "Mystery", 10749: "Romance", 878: "Science Fiction",
+        10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"
+    ]
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -76,14 +85,19 @@ class MovieTableViewCell: UITableViewCell {
         ])
     }
     
+    private func genreNames(from ids: [Int]) -> String {
+        // Mapeia os IDs para nomes usando o dicionário e junta-os em uma string
+        return ids.compactMap { genreDictionary[$0] }.joined(separator: ", ")
+    }
+    
     func configure(with movie: Movie) {
         titleLabel.text = movie.title
-        yearLabel.text = movie.year
-        userScoreLabel.text = movie.userScore
-        categoryLabel.text = movie.category
+        yearLabel.text = movie.releaseDate
+        userScoreLabel.text = movie.voteAverage
+        categoryLabel.text = genreNames(from: movie.genreIDs)
         
         movieImageView.image = nil // Limpa a imagem antiga
-        loadImage(fromPath: movie.imagePath)
+        loadImage(fromPath: movie.posterPath)
     }
     
     func loadImage(fromPath path: String?) {

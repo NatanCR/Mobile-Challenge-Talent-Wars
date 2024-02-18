@@ -12,5 +12,5 @@ public protocol Coordinator {
     var navigationController: UINavigationController { get set }
     
     func start()
-    
+    func showMovieDetails(for movie: Movie)
 }
