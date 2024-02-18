@@ -27,10 +27,10 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
         searchBar.delegate = self
         
         viewModel.onMoviesUpdated = { [weak self] in
-                    DispatchQueue.main.async {
-                        self?.tableView.reloadData()
-                    }
-                }
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
         
         viewModel.fetchMoviesFromAPI()
         setupTableView()
@@ -41,22 +41,29 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-
+        
         // Reverte para a aparência padrão da UINavigationBar
         navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
         navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
     
     // Implementação do UISearchBarDelegate
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            viewModel.filterMovies(with: searchText)
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.filterMovies(with: searchText)
+        
+        if searchText.isEmpty {
+            title = "Popular Right now" // Título para a lista completa
+        } else {
+            title = "Your Results" // Título para os resultados da pesquisa
         }
-
-        func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-            searchBar.text = ""
-            viewModel.filterMovies(with: "")
-            searchBar.resignFirstResponder() // Esconde o teclado
-        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        viewModel.filterMovies(with: "")
+        title = "Popular Right now" // Restaurar o título original
+        searchBar.resignFirstResponder() // Esconde o teclado
+    }
     
     private func bindViewModel() {
         viewModel.onMoviesUpdated = { [weak self] in
@@ -104,14 +111,14 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
 
 extension HomeViewViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return viewModel.filteredMovies.count
-        }
-
-        func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
-            let movie = viewModel.filteredMovies[indexPath.row]
-            cell.configure(with: movie)
-            return cell
-        }
+        return viewModel.filteredMovies.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieTableViewCell", for: indexPath) as! MovieTableViewCell
+        let movie = viewModel.filteredMovies[indexPath.row]
+        cell.configure(with: movie)
+        return cell
+    }
 }
 
