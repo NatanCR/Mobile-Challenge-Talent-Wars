@@ -24,7 +24,7 @@ class MovieDetailsViewController: UIViewController {
     let userScore = UILabel()
     let overviewTitle = UILabel()
     let goFavButton = UIButton(type: .system)
-    let backButton = UIButton(type: .system)
+    var backButton = UIButton(type: .system)
     let viewMovieTitle = UILabel()
     let favoriteButton = UIButton(type: .system)
     private let userScoreProgressView = UIProgressView(progressViewStyle: .bar)
@@ -54,19 +54,10 @@ class MovieDetailsViewController: UIViewController {
     //MARK: - Buttons
     
     private func setupBackButton() {
-        backButton.setTitle("Back to Search", for: .normal) // Or use an arrow icon
-        let configuration = UIImage.SymbolConfiguration(pointSize: 12, weight: .medium, scale: .default)
-        if let backImage = UIImage(systemName: "chevron.left", withConfiguration: configuration) {
-            backButton.setImage(backImage, for: .normal)
-            backButton.tintColor = UIColor.white
-        }
-        backButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        backButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        backButton = UIButton.createCustomButton(title: "Back to Search", imageName: "chevron.left", color: .white.withAlphaComponent(0.5))
         backButton.setTitleColor(UIColor.white, for: .normal)
         backButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        backButton.layer.cornerRadius = 12
         
         view.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -380,34 +371,15 @@ class MovieDetailsViewController: UIViewController {
         
         // Load and set the background image
         if let backdropPath = movie.backdropPath {
-            loadImage(fromPath: backdropPath, into: movieImageView) // Assuming movieImageView is the UIImageView for the background image
+            movieImageView.loadImage(fromPath: backdropPath) // Assuming movieImageView is the UIImageView for the background image
         }
         
         // Load and set the poster image
         if let posterPath = movie.posterPath {
-            loadImage(fromPath: posterPath, into: posterImageView) // Make sure you have somePosterImageView
+            posterImageView.loadImage(fromPath: posterPath) // Make sure you have somePosterImageView
         }
         
         // Set the list of genres
         genresLabel.text = genreNames(from: movie.genreIDs)
-    }
-    
-    private func loadImage(fromPath path: String, into imageView: UIImageView) {
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(path)") else {
-            imageView.image = nil // Or a default image
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    imageView.image = image
-                }
-            } else {
-                DispatchQueue.main.async {
-                    imageView.image = nil // Or error/default image
-                }
-            }
-        }.resume()
     }
 }

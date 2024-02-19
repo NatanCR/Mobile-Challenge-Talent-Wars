@@ -14,7 +14,7 @@ class RatingViewController: UIViewController {
     private let backgroundImageView = UIImageView()
     private let posterImageView = UIImageView()
     private let titleLabel = UILabel()
-    let backButton = UIButton(type: .system)
+    var backButton = UIButton(type: .system)
     private let greenBackgroundView = UIView()
     private let movieTitleLabel = UILabel()
     private let youRatedThisLabel = UILabel()
@@ -82,19 +82,10 @@ class RatingViewController: UIViewController {
     }
     
     private func setupBackButton() {
-        backButton.setTitle("Back to Search", for: .normal) // Or use an arrow icon
-        let configuration = UIImage.SymbolConfiguration(pointSize: 12, weight: .medium, scale: .default)
-        if let backImage = UIImage(systemName: "chevron.left", withConfiguration: configuration) {
-            backButton.setImage(backImage, for: .normal)
-            backButton.tintColor = UIColor.white
-        }
-        backButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        backButton.backgroundColor = UIColor.white.withAlphaComponent(0.5)
+        backButton = UIButton.createCustomButton(title: "Back to Search", imageName: "chevron.left", color: .white.withAlphaComponent(0.5))
         backButton.setTitleColor(UIColor.white, for: .normal)
         backButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        
-        backButton.layer.cornerRadius = 12
         
         view.addSubview(backButton)
         backButton.translatesAutoresizingMaskIntoConstraints = false
@@ -298,31 +289,13 @@ class RatingViewController: UIViewController {
         
         // Load and set background image
         if let backdropPath = movie.backdropPath {
-            loadImage(fromPath: backdropPath, into: backgroundImageView)
+            backgroundImageView.loadImage(fromPath: backdropPath)
         }
         
         // Load and set poster image
         if let posterPath = movie.posterPath {
-            loadImage(fromPath: posterPath, into: posterImageView)
+            posterImageView.loadImage(fromPath: posterPath)
         }
-    }
-    
-    private func loadImage(fromPath path: String, into imageView: UIImageView) {
-        guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(path)") else {
-            imageView.image = nil // Or a default image
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let data = data, let image = UIImage(data: data) {
-                DispatchQueue.main.async {
-                    imageView.image = image
-                }
-            } else {
-                DispatchQueue.main.async {
-                    imageView.image = nil // Or error/default image
-                }
-            }
-        }.resume()
     }
 }
+
