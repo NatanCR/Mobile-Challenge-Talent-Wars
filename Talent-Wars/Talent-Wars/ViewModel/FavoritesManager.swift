@@ -1,9 +1,4 @@
-//
-//  FavoritesManager.swift
-//  Talent-Wars
-//
-//  Created by Natan de Camargo Rodrigues on 19/02/24.
-//
+// Em FavoritesManager.swift
 
 import Foundation
 import UIKit
@@ -12,29 +7,44 @@ class FavoritesManager {
     static let shared = FavoritesManager()
 
     private let favoritesKey = "FavoritesKey"
-    private var favorites: Set<Int> {
+    
+    // Estrutura para armazenar dados mínimos dos filmes
+    struct FavoriteMovie: Codable {
+        let id: Int
+        let posterPath: String
+    }
+
+    // Usaremos um dicionário para armazenar os filmes favoritos pelo ID
+    private var favorites: [Int: FavoriteMovie] {
         get {
-            Set(UserDefaults.standard.array(forKey: favoritesKey) as? [Int] ?? [])
+            // Carregar e deserializar os dados salvos
+            guard let data = UserDefaults.standard.data(forKey: favoritesKey),
+                  let favorites = try? JSONDecoder().decode([Int: FavoriteMovie].self, from: data) else {
+                return [:]
+            }
+            return favorites
         }
         set {
-            UserDefaults.standard.set(Array(newValue), forKey: favoritesKey)
+            // Serializar e salvar os dados
+            let data = try? JSONEncoder().encode(newValue)
+            UserDefaults.standard.set(data, forKey: favoritesKey)
         }
     }
 
-    func addFavorite(movieId: Int) {
-        favorites.insert(movieId)
+    func addFavorite(movie: Movie) {
+        let favoriteMovie = FavoriteMovie(id: movie.id, posterPath: movie.posterPath ?? "")
+        favorites[movie.id] = favoriteMovie
     }
 
     func removeFavorite(movieId: Int) {
-        favorites.remove(movieId)
+        favorites.removeValue(forKey: movieId)
     }
 
     func isFavorite(movieId: Int) -> Bool {
-        favorites.contains(movieId)
+        favorites.contains { $0.key == movieId }
     }
 
-    func getFavorites() -> [Int] {
-        Array(favorites)
+    func getFavoriteMovies() -> [FavoriteMovie] {
+        Array(favorites.values)
     }
 }
-

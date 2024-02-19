@@ -60,20 +60,14 @@ class HomeViewModel {
                     let movies = welcomeData.results.map { result -> Movie in
                         // Aqui você precisa converter de Result para Movie
                         // Ajuste de acordo com as propriedades da sua estrutura Movie
-                        return Movie(title: result.title,
+                        return Movie(id: result.id,
+                                     title: result.title,
                                      releaseDate: String(result.releaseDate.prefix(4)),
                                      voteAverage: "\(Int(result.voteAverage * 10))%",
                                      overview: result.overview,
                                      backdropPath: result.backdropPath,
                                      posterPath: result.posterPath,
                                      genreIDs: result.genreIDS)
-//                        return Movie(
-//                            title: result.title,
-//                            year: String(result.releaseDate.prefix(4)),
-//                            userScore: "\(Int(result.voteAverage * 10))%", // Convertido para uma porcentagem
-//                            category: self?.genreNames(from: result.genreIDS) ?? "",
-//                            imagePath: nil // Você precisará carregar a imagem de maneira assíncrona
-//                        )
                     }
                     // Atualiza a propriedade 'movies' na thread principal
                     DispatchQueue.main.async {
@@ -88,13 +82,15 @@ class HomeViewModel {
         dataTask.resume()
     }
     
-    private func genreNames(from ids: [Int]) -> String {
-        // Aqui você pode mapear os IDs dos gêneros para nomes de gêneros
-        // Isso pode requerer uma chamada de API separada ou um dicionário local
-        // Por exemplo:
-        let genreDictionary = [28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime", 99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History", 27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Science Fiction", 10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"]
-        
-        // Junta os nomes dos gêneros em uma string separada por vírgulas
-        return ids.compactMap { genreDictionary[$0] }.joined(separator: ", ")
-    }
+   
+    
+//    private func genreNames(from ids: [Int]) -> String {
+//        // Aqui você pode mapear os IDs dos gêneros para nomes de gêneros
+//        // Isso pode requerer uma chamada de API separada ou um dicionário local
+//        // Por exemplo:
+//        let genreDictionary = [28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime", 99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History", 27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Science Fiction", 10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"]
+//        
+//        // Junta os nomes dos gêneros em uma string separada por vírgulas
+//        return ids.compactMap { genreDictionary[$0] }.joined(separator: ", ")
+//    }
 }

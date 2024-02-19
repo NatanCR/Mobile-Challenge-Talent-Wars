@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewViewController: UIViewController, UISearchBarDelegate {
+class HomeViewController: UIViewController, UISearchBarDelegate {
     var coordinator: Coordinator?
     
     private let searchBar = UISearchBar()
@@ -25,7 +25,7 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = UIColor(named: "homeBG") // A cor de fundo
         appearance.titleTextAttributes = [
-            .font: UIFont(name: "Jomhuria-Regular", size: 40) ?? UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor(named: "homeTitle") ?? UIColor.white
+            .font: UIFont(name: "Jomhuria-Regular", size: 40) ?? UIFont.systemFont(ofSize: 40), .foregroundColor: UIColor(named: "homeTitle") ?? UIColor.white
         ]
         
         navigationController?.navigationBar.standardAppearance = appearance
@@ -51,6 +51,10 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
     }
     
     // Implementação do UISearchBarDelegate
@@ -114,7 +118,7 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
 }
 
 
-extension HomeViewViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.filteredMovies.count
     }

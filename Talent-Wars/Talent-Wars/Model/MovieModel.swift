@@ -13,6 +13,7 @@ struct MoviesResponse: Codable {
 }
 
 public struct Movie: Codable {
+    let id: Int
     let title: String
     let releaseDate: String
     let voteAverage: String

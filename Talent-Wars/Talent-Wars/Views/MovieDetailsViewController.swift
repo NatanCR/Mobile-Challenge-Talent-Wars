@@ -50,7 +50,7 @@ class MovieDetailsViewController: UIViewController {
     
     
     override func viewWillDisappear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = false
+//        navigationController?.navigationBar.isHidden = false
     }
     
     //MARK: - Buttons
@@ -119,7 +119,6 @@ class MovieDetailsViewController: UIViewController {
     }
     
     @objc func goFavTapped() {
-        navigationController?.popViewController(animated: true)
         // Implemente o que deve acontecer quando o botão for tocado
         coordinator?.showFavorites()
     }
@@ -157,8 +156,25 @@ class MovieDetailsViewController: UIViewController {
     }
     
     @objc func favoriteButtonTapped() {
-        // Ação quando o botão de favorito é tocado
-        print("Favorite button tapped")
+        guard let movie = movie else { return }
+           
+           let isFavorite = FavoritesManager.shared.isFavorite(movieId: movie.id)
+           if isFavorite {
+               FavoritesManager.shared.removeFavorite(movieId: movie.id)
+               // Atualize a UI para refletir que não é mais favorito
+               updateFavoriteButton(isFavorite: false)
+           } else {
+               FavoritesManager.shared.addFavorite(movie: movie)
+               // Atualize a UI para refletir que é favorito
+               updateFavoriteButton(isFavorite: true)
+           }
+    }
+    
+    private func updateFavoriteButton(isFavorite: Bool) {
+        let imageName = isFavorite ? "star.fill" : "star"
+        let configuration = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium, scale: .default)
+        let starImage = UIImage(systemName: imageName, withConfiguration: configuration)?.withTintColor(UIColor(named: "favButton") ?? .orange, renderingMode: .alwaysOriginal)
+        favoriteButton.setImage(starImage, for: .normal)
     }
     
     //MARK: - View Configuration
