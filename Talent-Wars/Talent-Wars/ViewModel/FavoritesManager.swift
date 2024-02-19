@@ -8,16 +8,16 @@ class FavoritesManager {
 
     private let favoritesKey = "FavoritesKey"
     
-    // Estrutura para armazenar dados mínimos dos filmes
+    // Structure to store minimal data of movies
     struct FavoriteMovie: Codable {
         let id: Int
         let posterPath: String
     }
 
-    // Usaremos um dicionário para armazenar os filmes favoritos pelo ID
+    // Dictionary to store favorite movies by ID
     private var favorites: [Int: FavoriteMovie] {
         get {
-            // Carregar e deserializar os dados salvos
+            // Load and deserialize the saved data
             guard let data = UserDefaults.standard.data(forKey: favoritesKey),
                   let favorites = try? JSONDecoder().decode([Int: FavoriteMovie].self, from: data) else {
                 return [:]
@@ -25,7 +25,7 @@ class FavoritesManager {
             return favorites
         }
         set {
-            // Serializar e salvar os dados
+            // Serialize and save the data
             let data = try? JSONEncoder().encode(newValue)
             UserDefaults.standard.set(data, forKey: favoritesKey)
         }

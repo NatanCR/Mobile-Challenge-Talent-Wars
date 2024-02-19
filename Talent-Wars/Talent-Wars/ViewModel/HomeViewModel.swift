@@ -10,10 +10,10 @@ import UIKit
 
 class HomeViewModel {
     
-    // Este closure é chamado quando os filmes são atualizados
+    // This closure is called when the movies are updated
     var onMoviesUpdated: (() -> Void)?
     
-    // Array de filmes
+    // Array of movies
     var movies: [Movie] = [] {
         didSet {
             filteredMovies = movies
@@ -54,12 +54,11 @@ class HomeViewModel {
                       let httpResponse = response as? HTTPURLResponse,
                       httpResponse.statusCode == 200 {
                 do {
-                    // Decodifica a resposta JSON para a estrutura Welcome
+                    // // Decodes the JSON response into the Welcome structure
                     let welcomeData = try JSONDecoder().decode(Welcome.self, from: data)
-                    // Mapeia os resultados para a estrutura Movie
+                    // Maps the results to the Movie structure
                     let movies = welcomeData.results.map { result -> Movie in
-                        // Aqui você precisa converter de Result para Movie
-                        // Ajuste de acordo com as propriedades da sua estrutura Movie
+                        // Here you need to convert from Result to Movie
                         return Movie(id: result.id,
                                      title: result.title,
                                      releaseDate: String(result.releaseDate.prefix(4)),
@@ -69,7 +68,7 @@ class HomeViewModel {
                                      posterPath: result.posterPath,
                                      genreIDs: result.genreIDS)
                     }
-                    // Atualiza a propriedade 'movies' na thread principal
+                    // Updates the 'movies' property on the main thread
                     DispatchQueue.main.async {
                         self?.movies = movies
                         self?.onMoviesUpdated?()
@@ -81,16 +80,4 @@ class HomeViewModel {
         })
         dataTask.resume()
     }
-    
-   
-    
-//    private func genreNames(from ids: [Int]) -> String {
-//        // Aqui você pode mapear os IDs dos gêneros para nomes de gêneros
-//        // Isso pode requerer uma chamada de API separada ou um dicionário local
-//        // Por exemplo:
-//        let genreDictionary = [28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime", 99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History", 27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Science Fiction", 10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"]
-//        
-//        // Junta os nomes dos gêneros em uma string separada por vírgulas
-//        return ids.compactMap { genreDictionary[$0] }.joined(separator: ", ")
-//    }
 }

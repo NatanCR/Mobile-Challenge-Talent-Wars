@@ -25,24 +25,26 @@ class FlowCoordinatorController: Coordinator {
     
     func showMovieDetails(for movie: Movie) {
         let detailsVC = MovieDetailsViewController()
-        detailsVC.coordinator = self  // Certifique-se de que esta linha está presente
+        detailsVC.coordinator = self  // Ensure this line is present
         detailsVC.movie = movie
         navigationController.pushViewController(detailsVC, animated: true)
     }
     
+    func showRating(for movie: Movie) {
+        let ratingVC = RatingViewController()
+        ratingVC.coordinator = self
+        ratingVC.movie = movie
+        navigationController.pushViewController(ratingVC, animated: true)
+    }
+    
     func showFavorites() {
-        //        let favoritesVC = FavoritesMoviesViewController()
-        //        favoritesVC.favoriteMovieIds = FavoritesManager.shared.getFavoriteMovieIds()
-        //        navigationController.pushViewController(favoritesVC, animated: true)
-        
         let favoritesVC = FavoritesMoviesViewController()
         favoritesVC.coordinator = self
-        // Obtendo os filmes favoritos e passando-os para a FavoritesMoviesViewController
+        // Getting the favorite movies and passing them to the FavoritesMoviesViewController
         let favoriteMovies = FavoritesManager.shared.getFavoriteMovies().map { favorite in
-            // Aqui você cria instâncias de Movie a partir dos dados de FavoriteMovie
-            // Adapte para corresponder à sua estrutura de Movie
+            // Here you create instances of Movie from the FavoriteMovie data
             return Movie(id: favorite.id,
-                         title: "", // Valor padrão ou outro apropriado
+                         title: "", // Default value or another appropriate one
                          releaseDate: "",
                          voteAverage: "",
                          overview: "",
@@ -51,7 +53,7 @@ class FlowCoordinatorController: Coordinator {
                          genreIDs: [])
         }
         
-        // Configurando a lista de filmes favoritos na FavoritesMoviesViewController
+        // Setting the list of favorite movies in the FavoritesMoviesViewController
         favoritesVC.favoriteMovies = favoriteMovies
         navigationController.pushViewController(favoritesVC, animated: true)
     }

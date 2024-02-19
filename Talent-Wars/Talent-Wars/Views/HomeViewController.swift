@@ -13,17 +13,17 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
     
-    var viewModel = HomeViewModel() // Instanciando o ViewModel
+    var viewModel = HomeViewModel() // Instantiating the ViewModel
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Defina o título da view.
+        // Setting the view's title.
         title = "Popular Right now"
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor(named: "homeBG") // A cor de fundo
+        appearance.backgroundColor = UIColor(named: "homeBG") // The background color
         appearance.titleTextAttributes = [
             .font: UIFont(name: "Jomhuria-Regular", size: 40) ?? UIFont.systemFont(ofSize: 40), .foregroundColor: UIColor(named: "homeTitle") ?? UIColor.white
         ]
@@ -57,22 +57,22 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         navigationController?.navigationBar.isHidden = false
     }
     
-    // Implementação do UISearchBarDelegate
+    // Implementation of UISearchBarDelegate
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.filterMovies(with: searchText)
         
         if searchText.isEmpty {
-            title = "Popular Right now" // Título para a lista completa
+            title = "Popular Right now" // Title for the full list
         } else {
-            title = "Your Results" // Título para os resultados da pesquisa
+            title = "Your Results" // Title for the search results
         }
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = ""
         viewModel.filterMovies(with: "")
-        title = "Popular Right now" // Restaurar o título original
-        searchBar.resignFirstResponder() // Esconde o teclado
+        title = "Popular Right now" // Restore the original title
+        searchBar.resignFirstResponder() // Hides the keyboard
     }
     
     private func bindViewModel() {
@@ -91,7 +91,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
     
     private func setupSearchBar() {
         searchBar.placeholder = "Search"
-        // Adicione mais configurações de searchBar se necessário
     }
     
     private func setupLayout() {
@@ -101,7 +100,6 @@ class HomeViewController: UIViewController, UISearchBarDelegate {
         
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        // A cor de fundo deve ser definida diretamente na searchBar e na tableView.
         tableView.backgroundColor = .white
         
         NSLayoutConstraint.activate([

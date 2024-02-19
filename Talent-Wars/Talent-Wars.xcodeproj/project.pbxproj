@@ -24,6 +24,7 @@
 		D10F7C8F2B823CD2007D27EB /* FavoritesMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C8E2B823CD2007D27EB /* FavoritesMoviesViewController.swift */; };
 		D10F7C932B831359007D27EB /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C922B831359007D27EB /* FavoritesManager.swift */; };
 		D10F7C952B8316FA007D27EB /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C942B8316FA007D27EB /* MovieCollectionViewCell.swift */; };
+		D10F7C972B834C54007D27EB /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C962B834C54007D27EB /* RatingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		D10F7C8E2B823CD2007D27EB /* FavoritesMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesMoviesViewController.swift; sourceTree = "<group>"; };
 		D10F7C922B831359007D27EB /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		D10F7C942B8316FA007D27EB /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
+		D10F7C962B834C54007D27EB /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +98,7 @@
 				D10F7C792B81ACF9007D27EB /* HomeViewController.swift */,
 				D10F7C862B81E31E007D27EB /* MovieDetailsViewController.swift */,
 				D10F7C8E2B823CD2007D27EB /* FavoritesMoviesViewController.swift */,
+				D10F7C962B834C54007D27EB /* RatingViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -217,6 +220,7 @@
 				D10F7C7D2B81C148007D27EB /* MovieTableViewCell.swift in Sources */,
 				D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */,
 				D10F7C872B81E31F007D27EB /* MovieDetailsViewController.swift in Sources */,
+				D10F7C972B834C54007D27EB /* RatingViewController.swift in Sources */,
 				D10F7C5B2B819DB6007D27EB /* AppDelegate.swift in Sources */,
 				D10F7C8F2B823CD2007D27EB /* FavoritesMoviesViewController.swift in Sources */,
 				D10F7C7F2B81C15C007D27EB /* MovieModel.swift in Sources */,

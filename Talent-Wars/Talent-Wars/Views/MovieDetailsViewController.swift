@@ -27,6 +27,7 @@ class MovieDetailsViewController: UIViewController {
     let backButton = UIButton(type: .system)
     let viewMovieTitle = UILabel()
     let favoriteButton = UIButton(type: .system)
+    private let userScoreProgressView = UIProgressView(progressViewStyle: .bar)
     
     var movie: Movie? {
         didSet {
@@ -44,19 +45,16 @@ class MovieDetailsViewController: UIViewController {
         setupViews()
         setupLayout()
         setupGoFavButton()
+        setupRateItMyselfButton()
         setupBackButton()
         setupFavoriteButton()
-    }
-    
-    
-    override func viewWillDisappear(_ animated: Bool) {
-//        navigationController?.navigationBar.isHidden = false
+        setupUserScoreProgressView()
     }
     
     //MARK: - Buttons
     
     private func setupBackButton() {
-        backButton.setTitle("Back to Search", for: .normal) // Ou use um ícone de seta
+        backButton.setTitle("Back to Search", for: .normal) // Or use an arrow icon
         let configuration = UIImage.SymbolConfiguration(pointSize: 12, weight: .medium, scale: .default)
         if let backImage = UIImage(systemName: "chevron.left", withConfiguration: configuration) {
             backButton.setImage(backImage, for: .normal)
@@ -83,43 +81,41 @@ class MovieDetailsViewController: UIViewController {
     
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
-        // Ou, se você estiver apresentando de forma modal:
+        // Or, if you're presenting modally:
         dismiss(animated: true, completion: nil)
     }
     
     private func setupGoFavButton() {
-        // Configure o botão
+        // Set up the button
         goFavButton.setTitle("View Favs", for: .normal)
         goFavButton.backgroundColor = UIColor(named: "goFavButton")
         goFavButton.setTitleColor(UIColor(named: "labelFavButton"), for: .normal)
         goFavButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         
-        goFavButton.layer.shadowColor = UIColor.black.cgColor // A cor da sombra
-        goFavButton.layer.shadowOffset = CGSize(width: 0, height: 4) // A direção e distância da sombra
-        goFavButton.layer.shadowOpacity = 0.5 // A transparência da sombra
-        goFavButton.layer.shadowRadius = 5 // O quão borrada a sombra será
+        goFavButton.layer.shadowColor = UIColor.black.cgColor // The shadow color
+        goFavButton.layer.shadowOffset = CGSize(width: 0, height: 4) // The direction and distance of the shadow
+        goFavButton.layer.shadowOpacity = 0.5 // The transparency of the shadow
+        goFavButton.layer.shadowRadius = 5 // How blurred the shadow will be
         
-        // Aplica cantos arredondados
-        goFavButton.layer.cornerRadius = 30 // Ajuste o valor conforme necessário
+        // Apply rounded corners
+        goFavButton.layer.cornerRadius = 30 // Adjust the value as needed
         goFavButton.clipsToBounds = false
         
-        // Adicione o botão à view e configure as constraints
+        // Adding the button to the view and setting up constraints
         contentView.addSubview(goFavButton)
         goFavButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            goFavButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 70),
-            goFavButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -270), // Ajuste conforme necessário
-            goFavButton.widthAnchor.constraint(equalToConstant: 150), // Ajuste conforme necessário
-            goFavButton.heightAnchor.constraint(equalToConstant: 60) // Ajuste conforme necessário
+            goFavButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 80),
+            goFavButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -270),
+            goFavButton.widthAnchor.constraint(equalToConstant: 150),
+            goFavButton.heightAnchor.constraint(equalToConstant: 60)
         ])
         
-        // Adicione uma ação para o botão
         goFavButton.addTarget(self, action: #selector(goFavTapped), for: .touchUpInside)
     }
     
     @objc func goFavTapped() {
-        // Implemente o que deve acontecer quando o botão for tocado
         coordinator?.showFavorites()
     }
     
@@ -130,44 +126,39 @@ class MovieDetailsViewController: UIViewController {
         favoriteButton.backgroundColor = .white
         favoriteButton.tintColor = .yellow
         
-        // Para criar um círculo perfeito, o height e o width devem ser iguais
         let buttonSize: CGFloat = 50
         favoriteButton.frame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
         
-        // Ajuste cornerRadius para metade do tamanho do botão para torná-lo um círculo perfeito
         favoriteButton.layer.cornerRadius = buttonSize / 2
         favoriteButton.layer.masksToBounds = true
         
-        // Adicione sombra ou outras personalizações aqui se necessário
-        
-        // Adicionar o botão à view e definir sua posição e tamanho
+        // Adding the button to the view and setting its position and size
         view.addSubview(favoriteButton)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            favoriteButton.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -30), // Ajuste conforme necessário
-            favoriteButton.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor, constant: 150), // Ajuste conforme necessário
+            favoriteButton.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -30), // Adjust as necessary
+            favoriteButton.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor, constant: 150), // Adjust as necessary
             favoriteButton.widthAnchor.constraint(equalToConstant: buttonSize),
             favoriteButton.heightAnchor.constraint(equalToConstant: buttonSize)
         ])
         
-        // Adicionar uma ação para o botão
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
     }
     
     @objc func favoriteButtonTapped() {
         guard let movie = movie else { return }
-           
-           let isFavorite = FavoritesManager.shared.isFavorite(movieId: movie.id)
-           if isFavorite {
-               FavoritesManager.shared.removeFavorite(movieId: movie.id)
-               // Atualize a UI para refletir que não é mais favorito
-               updateFavoriteButton(isFavorite: false)
-           } else {
-               FavoritesManager.shared.addFavorite(movie: movie)
-               // Atualize a UI para refletir que é favorito
-               updateFavoriteButton(isFavorite: true)
-           }
+        
+        let isFavorite = FavoritesManager.shared.isFavorite(movieId: movie.id)
+        if isFavorite {
+            FavoritesManager.shared.removeFavorite(movieId: movie.id)
+            // Update UI to reflect it's no longer favorite
+            updateFavoriteButton(isFavorite: false)
+        } else {
+            FavoritesManager.shared.addFavorite(movie: movie)
+            // Update UI to reflect it's favorite
+            updateFavoriteButton(isFavorite: true)
+        }
     }
     
     private func updateFavoriteButton(isFavorite: Bool) {
@@ -177,7 +168,97 @@ class MovieDetailsViewController: UIViewController {
         favoriteButton.setImage(starImage, for: .normal)
     }
     
+    private func setupRateItMyselfButton() {
+        let buttonView = UIView()
+        buttonView.backgroundColor = UIColor.systemBrown.withAlphaComponent(0.7) // Color for top part
+        buttonView.layer.cornerRadius = 15
+        buttonView.clipsToBounds = true
+        buttonView.layer.shadowColor = UIColor.black.cgColor
+        buttonView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        buttonView.layer.shadowRadius = 2
+        buttonView.layer.shadowOpacity = 0.5
+        
+        let topLabel = UILabel()
+        topLabel.text = "Rate it myself"
+        topLabel.font = UIFont.systemFont(ofSize: 16)
+        topLabel.textColor = .white
+        topLabel.backgroundColor = UIColor(named: "ratingButton") // Color for top part
+        topLabel.textAlignment = .center
+        
+        let bottomLabel = UILabel()
+        bottomLabel.text = "add personal rating"
+        bottomLabel.font = UIFont.systemFont(ofSize: 12)
+        bottomLabel.textColor = UIColor(named: "addRating")
+        bottomLabel.backgroundColor = .black // Color for bottom part
+        bottomLabel.textAlignment = .center
+        
+        buttonView.addSubview(topLabel)
+        buttonView.addSubview(bottomLabel)
+        
+        topLabel.translatesAutoresizingMaskIntoConstraints = false
+        bottomLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            topLabel.topAnchor.constraint(equalTo: buttonView.topAnchor),
+            topLabel.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor),
+            topLabel.trailingAnchor.constraint(equalTo: buttonView.trailingAnchor),
+            topLabel.heightAnchor.constraint(equalTo: buttonView.heightAnchor, multiplier: 0.6),
+            
+            bottomLabel.bottomAnchor.constraint(equalTo: buttonView.bottomAnchor),
+            bottomLabel.leadingAnchor.constraint(equalTo: buttonView.leadingAnchor),
+            bottomLabel.trailingAnchor.constraint(equalTo: buttonView.trailingAnchor),
+            bottomLabel.heightAnchor.constraint(equalTo: buttonView.heightAnchor, multiplier: 0.4),
+        ])
+        
+        // Adding subview and configuring constraints
+        contentView.addSubview(buttonView)
+        buttonView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            buttonView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: -90),
+            buttonView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -270),
+            buttonView.widthAnchor.constraint(equalToConstant: 150),
+            buttonView.heightAnchor.constraint(equalToConstant: 60),
+        ])
+        
+        // Adding tap gesture
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(rateButtonTapped))
+        buttonView.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func rateButtonTapped() {
+        guard let movie = movie else { return }
+        coordinator?.showRating(for: movie)
+    }
+    
     //MARK: - View Configuration
+    
+    private func setupUserScoreProgressView() {
+        userScoreProgressView.translatesAutoresizingMaskIntoConstraints = false
+        userScoreProgressView.progressTintColor = UIColor(named: "progressView")
+        userScoreProgressView.trackTintColor = UIColor(named: "progressViewDefault")
+        contentView.addSubview(userScoreProgressView)
+        
+        let margin: CGFloat = 60 // Margin to the right of the screen
+        
+        NSLayoutConstraint.activate([
+            userScoreProgressView.leadingAnchor.constraint(equalTo: posterImageView.trailingAnchor, constant: 15), // Space after the poster
+            userScoreProgressView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -margin), // Margin to the right of the screen
+            userScoreProgressView.centerYAnchor.constraint(equalTo: userScore.centerYAnchor, constant: 20), // Vertical alignment with the score label
+            userScoreProgressView.heightAnchor.constraint(equalToConstant: 4) // Height of the progress bar
+        ])
+        
+        updateProgressView(with: movie?.voteAverage ?? "")
+    }
+    
+    private func updateProgressView(with percentageString: String) {
+        // Replace "%" with empty and convert to Float
+        let percentageValue = (percentageString.replacingOccurrences(of: "%", with: "") as NSString).floatValue
+        // Convert to a fraction of 1 (e.g., 70% becomes 0.7)
+        let progressValue = percentageValue / 100.0
+        // Set the progress of the progress bar
+        userScoreProgressView.setProgress(progressValue, animated: true)
+    }
     
     private func setupScrollView() {
         view.addSubview(scrollView)
@@ -235,7 +316,6 @@ class MovieDetailsViewController: UIViewController {
     //MARK: - Layout Position
     private func setupLayout() {
         // Set up constraints
-        // This will be a simplified version of your layout
         
         NSLayoutConstraint.activate([
             viewMovieTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
@@ -273,7 +353,7 @@ class MovieDetailsViewController: UIViewController {
             
             posterImageView.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -50),
             posterImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            posterImageView.widthAnchor.constraint(equalToConstant: 130), // Defina a largura conforme necessário
+            posterImageView.widthAnchor.constraint(equalToConstant: 130), // Set width as necessary
             posterImageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }
@@ -281,12 +361,9 @@ class MovieDetailsViewController: UIViewController {
     //MARK: - Elements Config
     
     private func genreNames(from ids: [Int]) -> String {
-        // Aqui você pode mapear os IDs dos gêneros para nomes de gêneros
-        // Isso pode requerer uma chamada de API separada ou um dicionário local
-        // Por exemplo:
         let genreDictionary = [28: "Action", 12: "Adventure", 16: "Animation", 35: "Comedy", 80: "Crime", 99: "Documentary", 18: "Drama", 10751: "Family", 14: "Fantasy", 36: "History", 27: "Horror", 10402: "Music", 9648: "Mystery", 10749: "Romance", 878: "Science Fiction", 10770: "TV Movie", 53: "Thriller", 10752: "War", 37: "Western"]
         
-        // Junta os nomes dos gêneros em uma string separada por vírgulas
+        // Join the genre names into a string separated by commas
         return ids.compactMap { genreDictionary[$0] }.joined(separator: ", ")
     }
     
@@ -301,23 +378,23 @@ class MovieDetailsViewController: UIViewController {
         userScore.text = "user score"
         overviewTitle.text = "Overview"
         
-        // Carregar e definir a imagem de fundo
+        // Load and set the background image
         if let backdropPath = movie.backdropPath {
-            loadImage(fromPath: backdropPath, into: movieImageView) // Supondo que movieImageView é o UIImageView para a imagem de fundo
+            loadImage(fromPath: backdropPath, into: movieImageView) // Assuming movieImageView is the UIImageView for the background image
         }
         
-        // Carregar e definir a imagem do poster
+        // Load and set the poster image
         if let posterPath = movie.posterPath {
-            loadImage(fromPath: posterPath, into: posterImageView) // Certifique-se de ter um somePosterImageView
+            loadImage(fromPath: posterPath, into: posterImageView) // Make sure you have somePosterImageView
         }
         
-        // Definir a lista de gêneros
+        // Set the list of genres
         genresLabel.text = genreNames(from: movie.genreIDs)
     }
     
     private func loadImage(fromPath path: String, into imageView: UIImageView) {
         guard let url = URL(string: "https://image.tmdb.org/t/p/w500\(path)") else {
-            imageView.image = nil // Ou defina uma imagem padrão
+            imageView.image = nil // Or a default image
             return
         }
         
@@ -328,10 +405,9 @@ class MovieDetailsViewController: UIViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    imageView.image = nil // Ou sua imagem de erro/padrão
+                    imageView.image = nil // Or error/default image
                 }
             }
         }.resume()
     }
 }
-

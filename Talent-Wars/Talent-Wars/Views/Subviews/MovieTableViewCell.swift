@@ -86,7 +86,7 @@ class MovieTableViewCell: UITableViewCell {
     }
     
     private func genreNames(from ids: [Int]) -> String {
-        // Mapeia os IDs para nomes usando o dicionário e junta-os em uma string
+        // Maps IDs to names using the dictionary and assembles them into a string
         return ids.compactMap { genreDictionary[$0] }.joined(separator: ", ")
     }
     
@@ -96,7 +96,7 @@ class MovieTableViewCell: UITableViewCell {
         userScoreLabel.text = movie.voteAverage
         categoryLabel.text = genreNames(from: movie.genreIDs)
         
-        movieImageView.image = nil // Limpa a imagem antiga
+        movieImageView.image = nil // Clean up the old image
         loadImage(fromPath: movie.posterPath)
     }
     

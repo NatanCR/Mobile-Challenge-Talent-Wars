@@ -22,7 +22,6 @@ public struct Movie: Codable {
     let posterPath: String?
     let genreIDs: [Int]
     
-    // Você pode adicionar propriedades calculadas ou métodos para obter a URL da imagem e formatar a data, por exemplo.
     var formattedReleaseYear: String {
         String(releaseDate.prefix(4))
     }
