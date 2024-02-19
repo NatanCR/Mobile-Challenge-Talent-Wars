@@ -13,4 +13,5 @@ public protocol Coordinator {
     
     func start()
     func showMovieDetails(for movie: Movie)
+    func showFavorites()
 }

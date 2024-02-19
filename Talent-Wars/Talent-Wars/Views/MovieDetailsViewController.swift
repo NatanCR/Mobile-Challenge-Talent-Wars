@@ -8,6 +8,7 @@
 import UIKit
 
 class MovieDetailsViewController: UIViewController {
+    var coordinator: Coordinator?
     
     // Subviews
     let scrollView = UIScrollView()
@@ -25,6 +26,7 @@ class MovieDetailsViewController: UIViewController {
     let goFavButton = UIButton(type: .system)
     let backButton = UIButton(type: .system)
     let viewMovieTitle = UILabel()
+    let favoriteButton = UIButton(type: .system)
     
     var movie: Movie? {
         didSet {
@@ -43,7 +45,15 @@ class MovieDetailsViewController: UIViewController {
         setupLayout()
         setupGoFavButton()
         setupBackButton()
+        setupFavoriteButton()
     }
+    
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    //MARK: - Buttons
     
     private func setupBackButton() {
         backButton.setTitle("Back to Search", for: .normal) // Ou use um ícone de seta
@@ -80,7 +90,7 @@ class MovieDetailsViewController: UIViewController {
     private func setupGoFavButton() {
         // Configure o botão
         goFavButton.setTitle("View Favs", for: .normal)
-        goFavButton.backgroundColor = UIColor(named: "favButton")
+        goFavButton.backgroundColor = UIColor(named: "goFavButton")
         goFavButton.setTitleColor(UIColor(named: "labelFavButton"), for: .normal)
         goFavButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
         
@@ -111,8 +121,47 @@ class MovieDetailsViewController: UIViewController {
     @objc func goFavTapped() {
         navigationController?.popViewController(animated: true)
         // Implemente o que deve acontecer quando o botão for tocado
-        
+        coordinator?.showFavorites()
     }
+    
+    private func setupFavoriteButton() {
+        let configuration = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium, scale: .default)
+        let starImage = UIImage(systemName: "star", withConfiguration: configuration)?.withTintColor(UIColor(named: "favButton") ?? .orange, renderingMode: .alwaysOriginal)
+        favoriteButton.setImage(starImage, for: .normal)
+        favoriteButton.backgroundColor = .white
+        favoriteButton.tintColor = .yellow
+        
+        // Para criar um círculo perfeito, o height e o width devem ser iguais
+        let buttonSize: CGFloat = 50
+        favoriteButton.frame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
+        
+        // Ajuste cornerRadius para metade do tamanho do botão para torná-lo um círculo perfeito
+        favoriteButton.layer.cornerRadius = buttonSize / 2
+        favoriteButton.layer.masksToBounds = true
+        
+        // Adicione sombra ou outras personalizações aqui se necessário
+        
+        // Adicionar o botão à view e definir sua posição e tamanho
+        view.addSubview(favoriteButton)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            favoriteButton.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -30), // Ajuste conforme necessário
+            favoriteButton.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor, constant: 150), // Ajuste conforme necessário
+            favoriteButton.widthAnchor.constraint(equalToConstant: buttonSize),
+            favoriteButton.heightAnchor.constraint(equalToConstant: buttonSize)
+        ])
+        
+        // Adicionar uma ação para o botão
+        favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc func favoriteButtonTapped() {
+        // Ação quando o botão de favorito é tocado
+        print("Favorite button tapped")
+    }
+    
+    //MARK: - View Configuration
     
     private func setupScrollView() {
         view.addSubview(scrollView)
@@ -167,12 +216,13 @@ class MovieDetailsViewController: UIViewController {
         }
     }
     
+    //MARK: - Layout Position
     private func setupLayout() {
         // Set up constraints
         // This will be a simplified version of your layout
         
         NSLayoutConstraint.activate([
-            viewMovieTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            viewMovieTitle.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 60),
             viewMovieTitle.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             
             movieImageView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -211,6 +261,8 @@ class MovieDetailsViewController: UIViewController {
             posterImageView.heightAnchor.constraint(equalToConstant: 180)
         ])
     }
+    
+    //MARK: - Elements Config
     
     private func genreNames(from ids: [Int]) -> String {
         // Aqui você pode mapear os IDs dos gêneros para nomes de gêneros

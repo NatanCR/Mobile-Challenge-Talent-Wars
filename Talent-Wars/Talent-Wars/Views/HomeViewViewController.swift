@@ -28,7 +28,6 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
             .font: UIFont(name: "Jomhuria-Regular", size: 40) ?? UIFont.systemFont(ofSize: 20), .foregroundColor: UIColor(named: "homeTitle") ?? UIColor.white
         ]
         
-        
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance
@@ -52,9 +51,6 @@ class HomeViewViewController: UIViewController, UISearchBarDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        // Reverte para a aparência padrão da UINavigationBar
-        navigationController?.navigationBar.standardAppearance = UINavigationBarAppearance()
-        navigationController?.navigationBar.scrollEdgeAppearance = navigationController?.navigationBar.standardAppearance
     }
     
     // Implementação do UISearchBarDelegate

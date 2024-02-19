@@ -21,6 +21,8 @@
 		D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C842B81D507007D27EB /* ModelAPI.swift */; };
 		D10F7C872B81E31F007D27EB /* MovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C862B81E31E007D27EB /* MovieDetailsViewController.swift */; };
 		D10F7C892B823173007D27EB /* Jomhuria-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D10F7C882B823173007D27EB /* Jomhuria-Regular.ttf */; };
+		D10F7C8F2B823CD2007D27EB /* FavoritesMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C8E2B823CD2007D27EB /* FavoritesMoviesViewController.swift */; };
+		D10F7C932B831359007D27EB /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C922B831359007D27EB /* FavoritesManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		D10F7C842B81D507007D27EB /* ModelAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelAPI.swift; sourceTree = "<group>"; };
 		D10F7C862B81E31E007D27EB /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
 		D10F7C882B823173007D27EB /* Jomhuria-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Jomhuria-Regular.ttf"; sourceTree = "<group>"; };
+		D10F7C8E2B823CD2007D27EB /* FavoritesMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesMoviesViewController.swift; sourceTree = "<group>"; };
+		D10F7C922B831359007D27EB /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +93,7 @@
 				D10F7C7B2B81C12E007D27EB /* Subviews */,
 				D10F7C792B81ACF9007D27EB /* HomeViewViewController.swift */,
 				D10F7C862B81E31E007D27EB /* MovieDetailsViewController.swift */,
+				D10F7C8E2B823CD2007D27EB /* FavoritesMoviesViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -98,6 +103,7 @@
 			children = (
 				D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */,
 				D10F7C802B81C25B007D27EB /* HomeViewModel.swift */,
+				D10F7C922B831359007D27EB /* FavoritesManager.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -209,9 +215,11 @@
 				D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */,
 				D10F7C872B81E31F007D27EB /* MovieDetailsViewController.swift in Sources */,
 				D10F7C5B2B819DB6007D27EB /* AppDelegate.swift in Sources */,
+				D10F7C8F2B823CD2007D27EB /* FavoritesMoviesViewController.swift in Sources */,
 				D10F7C7F2B81C15C007D27EB /* MovieModel.swift in Sources */,
 				D10F7C742B81A690007D27EB /* Coordinator.swift in Sources */,
 				D10F7C722B81A5CC007D27EB /* FlowCoordinatorController.swift in Sources */,
+				D10F7C932B831359007D27EB /* FavoritesManager.swift in Sources */,
 				D10F7C5D2B819DB6007D27EB /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

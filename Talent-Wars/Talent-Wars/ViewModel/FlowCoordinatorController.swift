@@ -28,4 +28,11 @@ class FlowCoordinatorController: Coordinator {
            detailsVC.movie = movie
            navigationController.pushViewController(detailsVC, animated: true)
        }
+    
+    func showFavorites() {
+            let favoritesVC = FavoritesMoviesViewController()
+            // Aqui você pode configurar o FavoritesViewController com os filmes favoritos
+            // Por exemplo, passando os IDs dos filmes favoritos para ele
+            navigationController.pushViewController(favoritesVC, animated: true)
+        }
 }
