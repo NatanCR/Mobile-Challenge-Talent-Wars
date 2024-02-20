@@ -42,6 +42,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         navigationController?.navigationBar.isHidden = true
     }
     
+    //MARK: - SearchBar
     // Implement UITextFieldDelegate methods
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let searchText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
@@ -93,19 +94,7 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         searchBar.clearButtonMode = .whileEditing
     }
     
-    private func bindViewModel() {
-        viewModel.onMoviesUpdated = { [weak self] in
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        }
-    }
-    
-    private func setupTableView() {
-        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
+    //MARK: - View Layout
     
     private func setupLayout() {
         
@@ -140,6 +129,14 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         ])
     }
     
+    //MARK: - TableView
+    private func setupTableView() {
+        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+    
+    //MARK: - View Title Label
     private func setupTitleLabel() {
         titleView.text = "Popular Right now"
         titleView.textAlignment = .center
@@ -154,6 +151,15 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
             titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             titleView.heightAnchor.constraint(equalToConstant: 60)
         ])
+    }
+    
+    //MARK: - Reload Data
+    private func bindViewModel() {
+        viewModel.onMoviesUpdated = { [weak self] in
+            DispatchQueue.main.async {
+                self?.tableView.reloadData()
+            }
+        }
     }
 }
 
