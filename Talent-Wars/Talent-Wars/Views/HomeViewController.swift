@@ -67,8 +67,8 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
     
     private func setupSearchTextField() {
         let placeholderAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.black, // Change to your desired placeholder color
-            .font: UIFont.boldSystemFont(ofSize: 17) // You can also set the font here if needed
+            .foregroundColor: UIColor.black,
+            .font: UIFont.boldSystemFont(ofSize: 17)
         ]
         
         // Set the attributedPlaceholder property with the NSAttributedString
@@ -81,16 +81,16 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         searchBar.layer.cornerRadius = 26
         searchBar.layer.masksToBounds = true
         
-        // Set the font and text alignment
+        // Setting the font and text alignment
         searchBar.font = UIFont.boldSystemFont(ofSize: 17)
         searchBar.textAlignment = .left
         
-        // Set padding for the left side of the text field
+        // Setting padding for the left side of the text field
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: searchBar.frame.height))
         searchBar.leftView = paddingView
         searchBar.leftViewMode = .always
         
-        // Set the clear button
+        // Setting the clear button
         searchBar.clearButtonMode = .whileEditing
     }
     
