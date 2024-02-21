@@ -28,15 +28,17 @@ class HomeViewController: UIViewController, UITextFieldDelegate, CoordinatingVie
                 self?.tableView.reloadData()
             }
         }
+        setupViewConfig()
+        bindViewModel()
+    }
+    
+    func setupViewConfig() {
         viewModel.fetchMoviesFromAPI()
         SetupHomeViewController.setupLayout(in: self.view, tableView: tableView, searchBar: searchBar, greenBackgroundView: greenBackgroundView)
         SetupHomeViewController.setupSearchTextField(searchBar)
         SetupHomeViewController.setupTitleLabel(titleView, in: self.view)
         SetupHomeViewController.setupTableView(tableView, dataSource: self, delegate: self)
-
-        bindViewModel()
     }
-    
     
     //MARK: - SearchBar
     // Implement UITextFieldDelegate methods

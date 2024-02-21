@@ -44,6 +44,7 @@ class SetupFavoritesMoviesViewController {
     
     //MARK: - Buttons
     static func setupBackButton(backButton: UIButton, headerView: UIView, in view: UIView) {
+        
         backButton.setTitle("Back", for: .normal)
         let configuration = UIImage.SymbolConfiguration(pointSize: 12, weight: .medium, scale: .default)
         if let backImage = UIImage(systemName: "chevron.left", withConfiguration: configuration) {

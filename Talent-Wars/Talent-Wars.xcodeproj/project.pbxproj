@@ -30,6 +30,7 @@
 		D10F7CA62B85836F007D27EB /* SetupHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7CA52B85836F007D27EB /* SetupHomeViewController.swift */; };
 		D10F7CA82B858ABC007D27EB /* SetupMovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7CA72B858ABC007D27EB /* SetupMovieDetailsViewController.swift */; };
 		D10F7CAA2B859350007D27EB /* SetupFavoritesMoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7CA92B859350007D27EB /* SetupFavoritesMoviesViewController.swift */; };
+		D10F7CAC2B85979D007D27EB /* SetupRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7CAB2B85979D007D27EB /* SetupRatingViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		D10F7CA52B85836F007D27EB /* SetupHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupHomeViewController.swift; sourceTree = "<group>"; };
 		D10F7CA72B858ABC007D27EB /* SetupMovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMovieDetailsViewController.swift; sourceTree = "<group>"; };
 		D10F7CA92B859350007D27EB /* SetupFavoritesMoviesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupFavoritesMoviesViewController.swift; sourceTree = "<group>"; };
+		D10F7CAB2B85979D007D27EB /* SetupRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupRatingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				D10F7CA52B85836F007D27EB /* SetupHomeViewController.swift */,
 				D10F7CA72B858ABC007D27EB /* SetupMovieDetailsViewController.swift */,
 				D10F7CA92B859350007D27EB /* SetupFavoritesMoviesViewController.swift */,
+				D10F7CAB2B85979D007D27EB /* SetupRatingViewController.swift */,
 			);
 			path = SetupViews;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				D10F7C7D2B81C148007D27EB /* MovieTableViewCell.swift in Sources */,
 				D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */,
 				D10F7CAA2B859350007D27EB /* SetupFavoritesMoviesViewController.swift in Sources */,
+				D10F7CAC2B85979D007D27EB /* SetupRatingViewController.swift in Sources */,
 				D10F7C872B81E31F007D27EB /* MovieDetailsViewController.swift in Sources */,
 				D10F7C972B834C54007D27EB /* RatingViewController.swift in Sources */,
 				D10F7CA12B8573FB007D27EB /* UIButtonExtension.swift in Sources */,
