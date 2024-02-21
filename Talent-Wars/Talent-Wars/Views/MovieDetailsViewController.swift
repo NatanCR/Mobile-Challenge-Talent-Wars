@@ -44,24 +44,39 @@ class MovieDetailsViewController: UIViewController, CoordinatingViewController {
         SetupMovieDetailsViewController.setupScrollView(scrollView, contentView: contentView, in: view)
         SetupMovieDetailsViewController.setupViews(viewMovieTitle: viewMovieTitle, movieImageView: movieImageView, titleLabel: titleLabel, releaseDate: releaseDate, genresLabel: genresLabel, ratingLabel: ratingLabel, userScore: userScore, overviewTitle: overviewTitle, overviewTextView: overviewTextView, posterImageView: posterImageView, contentView: contentView)
         SetupMovieDetailsViewController.setupLayout(viewMovieTitle: viewMovieTitle, movieImageView: movieImageView, contentView: contentView, in: view, titleLabel: titleLabel, releaseDate: releaseDate, genresLabel: genresLabel, ratingLabel: ratingLabel, userScore: userScore, overviewTitle: overviewTitle, overviewTextView: overviewTextView, posterImageView: posterImageView)
-        SetupMovieDetailsViewController.setupGoFavButton(goFavButton, in: view, action: #selector(goFavTapped), contentView: contentView)
+        SetupMovieDetailsViewController.setupGoFavButton(goFavButton, in: view, contentView: contentView)
 
         setupRateItMyselfButton()
-        SetupMovieDetailsViewController.setupBackButton(backButton, in: view, action: #selector(backButtonTapped))
-        SetupMovieDetailsViewController.setupFavoriteButton(favoriteButton, in: view, movieImageView: movieImageView, action: #selector(favoriteButtonTapped))
+        setupBackButton()
+        SetupMovieDetailsViewController.setupFavoriteButton(favoriteButton, in: view, movieImageView: movieImageView)
 
         setupUserScoreProgressView()
         
         goFavButton.addTarget(self, action: #selector(goFavTapped), for: .touchUpInside)
-        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
     }
     
     //MARK: - Buttons actions
     
+    private func setupBackButton() {
+        backButton = UIButton.createCustomButton(title: "Back to Search", imageName: "chevron.left", color: .white.withAlphaComponent(0.5))
+        backButton.setTitleColor(UIColor.white, for: .normal)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        
+        view.addSubview(backButton)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
+            backButton.widthAnchor.constraint(equalToConstant: 140),
+            backButton.heightAnchor.constraint(equalToConstant: 28)
+        ])
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+    }
+    
     @objc func backButtonTapped() {
         navigationController?.popViewController(animated: true)
-        // Or, if you're presenting modally:
         dismiss(animated: true, completion: nil)
     }
     

@@ -32,7 +32,7 @@ class SetupMovieDetailsViewController {
     }
     
     //MARK: - Buttons
-    static func setupGoFavButton(_ goFavButton: UIButton, in view: UIView, action: Selector, contentView: UIView) {
+    static func setupGoFavButton(_ goFavButton: UIButton, in view: UIView, contentView: UIView) {
         // Set up the button
         goFavButton.setTitle("View Favs", for: .normal)
         goFavButton.backgroundColor = UIColor(named: "goFavButton")
@@ -61,24 +61,7 @@ class SetupMovieDetailsViewController {
         
     }
     
-    static func setupBackButton(_ backButtonVC: UIButton, in view: UIView, action: Selector) {
-        var backButton = backButtonVC
-        backButton = UIButton.createCustomButton(title: "Back to Search", imageName: "chevron.left", color: .white.withAlphaComponent(0.5))
-        backButton.setTitleColor(UIColor.white, for: .normal)
-        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        
-        view.addSubview(backButton)
-        backButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            backButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 30),
-            backButton.widthAnchor.constraint(equalToConstant: 140),
-            backButton.heightAnchor.constraint(equalToConstant: 28)
-        ])
-    }
-    
-    static func setupFavoriteButton(_ favoriteButton: UIButton, in view: UIView, movieImageView: UIImageView, action: Selector) {
+    static func setupFavoriteButton(_ favoriteButton: UIButton, in view: UIView, movieImageView: UIImageView) {
         let configuration = UIImage.SymbolConfiguration(pointSize: 28, weight: .medium, scale: .default)
         let starImage = UIImage(systemName: "star", withConfiguration: configuration)?.withTintColor(UIColor(named: "favButton") ?? .orange, renderingMode: .alwaysOriginal)
         favoriteButton.setImage(starImage, for: .normal)
