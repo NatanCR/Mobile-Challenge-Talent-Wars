@@ -10,7 +10,7 @@ import UIKit
 class FavoritesMoviesViewController: UIViewController {
     private var collectionView: UICollectionView!
     private var viewModel = HomeViewModel() // Added to use the data model
-    weak var coordinator: FlowCoordinatorController?
+    weak var coordinator: FlowCoordinatorController?   
     
     var favoriteMovies: [Movie] = [] // Here should have the favorite movies to display
     var favoriteMovieIds: [Int] = []

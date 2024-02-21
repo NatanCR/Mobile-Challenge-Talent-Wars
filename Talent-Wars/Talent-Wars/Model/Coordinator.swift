@@ -16,3 +16,7 @@ public protocol Coordinator {
     func showFavorites()
     func showRating(for movie: Movie)
 }
+
+protocol CoordinatingViewController {
+    var coordinator: Coordinator? { get set }
+}

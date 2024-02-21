@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, UITextFieldDelegate {
+class HomeViewController: UIViewController, UITextFieldDelegate, CoordinatingViewController {
     var coordinator: Coordinator?
     
     private let tableView = UITableView()
@@ -28,19 +28,15 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
                 self?.tableView.reloadData()
             }
         }
-        
         viewModel.fetchMoviesFromAPI()
-        setupTableView()
-        setupLayout()
-        setupSearchTextField()
-        setupTitleLabel()
+        SetupHomeViewController.setupLayout(in: self.view, tableView: tableView, searchBar: searchBar, greenBackgroundView: greenBackgroundView)
+        SetupHomeViewController.setupSearchTextField(searchBar)
+        SetupHomeViewController.setupTitleLabel(titleView, in: self.view)
+        SetupHomeViewController.setupTableView(tableView, dataSource: self, delegate: self)
+
         bindViewModel()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.navigationBar.isHidden = true
-    }
     
     //MARK: - SearchBar
     // Implement UITextFieldDelegate methods
@@ -63,94 +59,6 @@ class HomeViewController: UIViewController, UITextFieldDelegate {
         titleView.text = "Popular Right now"
         textField.resignFirstResponder()
         return false
-    }
-    
-    private func setupSearchTextField() {
-        let placeholderAttributes: [NSAttributedString.Key: Any] = [
-            .foregroundColor: UIColor.black,
-            .font: UIFont.boldSystemFont(ofSize: 17)
-        ]
-        
-        // Set the attributedPlaceholder property with the NSAttributedString
-        searchBar.attributedPlaceholder = NSAttributedString(string: "Search", attributes: placeholderAttributes)
-        searchBar.borderStyle = .none
-        searchBar.backgroundColor = UIColor.white
-        searchBar.clearButtonMode = .whileEditing
-        searchBar.returnKeyType = .search
-        
-        searchBar.layer.cornerRadius = 26
-        searchBar.layer.masksToBounds = true
-        
-        // Setting the font and text alignment
-        searchBar.font = UIFont.boldSystemFont(ofSize: 17)
-        searchBar.textAlignment = .left
-        
-        // Setting padding for the left side of the text field
-        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: searchBar.frame.height))
-        searchBar.leftView = paddingView
-        searchBar.leftViewMode = .always
-        
-        // Setting the clear button
-        searchBar.clearButtonMode = .whileEditing
-    }
-    
-    //MARK: - View Layout
-    
-    private func setupLayout() {
-        
-        view.addSubview(greenBackgroundView)
-        view.addSubview(tableView)
-        view.addSubview(searchBar)
-        
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        greenBackgroundView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        
-        tableView.backgroundColor = .white
-        greenBackgroundView.backgroundColor = UIColor(named: "homeBG")
-        
-        NSLayoutConstraint.activate([
-            searchBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            searchBar.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            searchBar.heightAnchor.constraint(equalToConstant: 50),
-            
-            // Green background view constraints
-            greenBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            greenBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            greenBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            greenBackgroundView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.3),
-            
-            tableView.topAnchor.constraint(equalTo: greenBackgroundView.topAnchor, constant: 250),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-    }
-    
-    //MARK: - TableView
-    private func setupTableView() {
-        tableView.register(MovieTableViewCell.self, forCellReuseIdentifier: "MovieTableViewCell")
-        tableView.dataSource = self
-        tableView.delegate = self
-    }
-    
-    //MARK: - View Title Label
-    private func setupTitleLabel() {
-        titleView.text = "Popular Right now"
-        titleView.textAlignment = .center
-        titleView.font = UIFont(name: "Jomhuria-Regular", size: 60)
-        titleView.textColor = UIColor(named: "homeTitle")
-        
-        view.addSubview(titleView)
-        titleView.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            titleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
-            titleView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            titleView.heightAnchor.constraint(equalToConstant: 60)
-        ])
     }
     
     //MARK: - Reload Data

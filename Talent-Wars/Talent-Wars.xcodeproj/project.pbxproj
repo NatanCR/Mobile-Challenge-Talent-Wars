@@ -25,6 +25,10 @@
 		D10F7C932B831359007D27EB /* FavoritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C922B831359007D27EB /* FavoritesManager.swift */; };
 		D10F7C952B8316FA007D27EB /* MovieCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C942B8316FA007D27EB /* MovieCollectionViewCell.swift */; };
 		D10F7C972B834C54007D27EB /* RatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C962B834C54007D27EB /* RatingViewController.swift */; };
+		D10F7C9F2B8573D9007D27EB /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7C9E2B8573D9007D27EB /* UIImageExtension.swift */; };
+		D10F7CA12B8573FB007D27EB /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7CA02B8573FB007D27EB /* UIButtonExtension.swift */; };
+		D10F7CA62B85836F007D27EB /* SetupHomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7CA52B85836F007D27EB /* SetupHomeViewController.swift */; };
+		D10F7CA82B858ABC007D27EB /* SetupMovieDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10F7CA72B858ABC007D27EB /* SetupMovieDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +52,10 @@
 		D10F7C922B831359007D27EB /* FavoritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesManager.swift; sourceTree = "<group>"; };
 		D10F7C942B8316FA007D27EB /* MovieCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCell.swift; sourceTree = "<group>"; };
 		D10F7C962B834C54007D27EB /* RatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewController.swift; sourceTree = "<group>"; };
+		D10F7C9E2B8573D9007D27EB /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		D10F7CA02B8573FB007D27EB /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		D10F7CA52B85836F007D27EB /* SetupHomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupHomeViewController.swift; sourceTree = "<group>"; };
+		D10F7CA72B858ABC007D27EB /* SetupMovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetupMovieDetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +102,7 @@
 		D10F7C6E2B81A599007D27EB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D10F7CA42B858348007D27EB /* SetupViews */,
 				D10F7C7B2B81C12E007D27EB /* Subviews */,
 				D10F7C792B81ACF9007D27EB /* HomeViewController.swift */,
 				D10F7C862B81E31E007D27EB /* MovieDetailsViewController.swift */,
@@ -109,6 +118,8 @@
 				D10F7C712B81A5CC007D27EB /* FlowCoordinatorController.swift */,
 				D10F7C802B81C25B007D27EB /* HomeViewModel.swift */,
 				D10F7C922B831359007D27EB /* FavoritesManager.swift */,
+				D10F7C9E2B8573D9007D27EB /* UIImageExtension.swift */,
+				D10F7CA02B8573FB007D27EB /* UIButtonExtension.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -141,6 +152,15 @@
 				D10F7C682B819DB8007D27EB /* Info.plist */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		D10F7CA42B858348007D27EB /* SetupViews */ = {
+			isa = PBXGroup;
+			children = (
+				D10F7CA52B85836F007D27EB /* SetupHomeViewController.swift */,
+				D10F7CA72B858ABC007D27EB /* SetupMovieDetailsViewController.swift */,
+			);
+			path = SetupViews;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,14 +241,18 @@
 				D10F7C852B81D507007D27EB /* ModelAPI.swift in Sources */,
 				D10F7C872B81E31F007D27EB /* MovieDetailsViewController.swift in Sources */,
 				D10F7C972B834C54007D27EB /* RatingViewController.swift in Sources */,
+				D10F7CA12B8573FB007D27EB /* UIButtonExtension.swift in Sources */,
 				D10F7C5B2B819DB6007D27EB /* AppDelegate.swift in Sources */,
 				D10F7C8F2B823CD2007D27EB /* FavoritesMoviesViewController.swift in Sources */,
 				D10F7C7F2B81C15C007D27EB /* MovieModel.swift in Sources */,
 				D10F7C742B81A690007D27EB /* Coordinator.swift in Sources */,
+				D10F7CA82B858ABC007D27EB /* SetupMovieDetailsViewController.swift in Sources */,
 				D10F7C722B81A5CC007D27EB /* FlowCoordinatorController.swift in Sources */,
 				D10F7C952B8316FA007D27EB /* MovieCollectionViewCell.swift in Sources */,
 				D10F7C932B831359007D27EB /* FavoritesManager.swift in Sources */,
 				D10F7C5D2B819DB6007D27EB /* SceneDelegate.swift in Sources */,
+				D10F7C9F2B8573D9007D27EB /* UIImageExtension.swift in Sources */,
+				D10F7CA62B85836F007D27EB /* SetupHomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

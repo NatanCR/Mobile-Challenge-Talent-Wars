@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RatingViewController: UIViewController {
+class RatingViewController: UIViewController, CoordinatingViewController {
     var coordinator: Coordinator?
     var movie: Movie?
     
